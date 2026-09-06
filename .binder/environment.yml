@@ -6,5 +6,6 @@ dependencies:
   - notebook
   - jupyterlab
   - ipywidgets
-  - xeus-cling      # Installe instantanément le Noyau C++
-  - maven           # Nécessaire pour finaliser l'installation du Noyau Java
+  - xeus-cling      # Noyau C++ (C++11, 14, 17)
+  - openjdk=17      # Version complète de Java pour le compilateur
+  - ijava           # NOYAU JAVA INTERACTIF POUR JUPYTER
