@@ -1,3 +1,1 @@
-jupyterlab
-IJava          # Kernel pour exécuter le code Java
-xeus-cling     # Kernel pour exécuter le C++ interactivement
+ipywidgets
