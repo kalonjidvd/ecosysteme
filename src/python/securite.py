@@ -1,17 +1,34 @@
 import sys
-import getpass
+from IPython.display import display, clear_output
+import ipywidgets as widgets
 
 def verifier_acces():
-    # Définissez le mot de passe de l'atelier ici (ex: "Kin2026")
-    mot_de_passe_correct = "Kin2026" 
+    mot_de_passe_correct = "Kin2026"
     
     print("🔒 CONFIGURATION DE LA SESSION ATELIER")
-    # getpass cache les caractères tapés à l'écran pour plus de discrétion
-    saisie = getpass.getpass("Veuillez entrer le mot de passe d'accès au cours : ")
     
-    if saisie == mot_de_passe_correct:
-        print("✅ Accès autorisé. Vous pouvez poursuivre l'atelier.")
-    else:
-        print("❌ Mot de passe incorrect ! Arrêt immédiat du noyau.")
-        # On lève une exception volontaire pour bloquer l'exécution de toutes les cellules suivantes
-        raise PermissionError("Accès refusé : mot de passe invalide.")
+    # Création d'un champ de saisie de mot de passe graphique
+    password_input = widgets.Password(
+        description='Clé d\'accès:',
+        placeholder='Entrez le mot de passe',
+        style={'description_width': 'initial'}
+    )
+    
+    button = widgets.Button(description="Valider")
+    output = widgets.Output()
+    
+    display(password_input, button, output)
+    
+    def on_button_clicked(b):
+        with output:
+            clear_output()
+            if password_input.value == mot_de_passe_correct:
+                print("✅ Accès autorisé. Vous pouvez poursuivre l'atelier.")
+                # On ferme proprement l'affichage du widget après validation
+                password_input.disabled = True
+                button.disabled = True
+            else:
+                print("❌ Mot de passe incorrect !")
+                # Optionnel : lever une erreur si nécessaire
+                
+    button.on_click(on_button_clicked)
