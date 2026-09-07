@@ -19,8 +19,6 @@ RUN mamba install --yes -c conda-forge \
     ipywidgets \
     && mamba clean --all -f -y
 
-# 4. Télécharger l'installeur officiel du noyau Java (Lien complet obligatoire)
-RUN curl -L "https://github.com" -o /tmp/ijava.zip \
-    && unzip /tmp/ijava.zip -d /tmp/ijava_pack \
-    && python /tmp/ijava_pack/install.py --sys-prefix \
-    && rm -rf /tmp/ijava.zip /tmp/ijava_pack
+# 4. Télécharger l'installeur officiel du noyau Java (Lien complet vérifié)
+RUN curl -L "https://github.com" -o /tmp/ijava.zip && unzip /tmp/ijava.zip -d /tmp/ijava_pack && python /tmp/ijava_pack/install.py --sys-prefix && rm -rf /tmp/ijava.zip /tmp/ijava_pack
+
