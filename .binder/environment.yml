@@ -1,0 +1,10 @@
+name: jupyter-multilang
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - notebook
+  - jupyterlab
+  - ipywidgets
+  - xeus-cling
+  - ijava
