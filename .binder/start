@@ -1,0 +1,7 @@
+#!/bin/bash
+# Si les fichiers sont bloqués dans le dossier work, on les remonte à la racine
+if [ -d "work" ] && [ "$(ls -A work)" ]; then
+    mv work/* work/.[!.]* . 2>/dev/null
+    rm -rf work
+fi
+exec "$@"
