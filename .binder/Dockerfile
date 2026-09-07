@@ -1,9 +1,9 @@
 # 1. Utiliser l'image officielle Jupyter stable contenant déjà Python et JupyterLab
-FROM jupyter/base-notebook:python-3.10
+FROM docker.io/jupyter/base-notebook:python-3.10
 
 USER root
 
-# 2. Installer les compilateurs système Linux nécessaires (Headless pour Java)
+# 2. Installer les compilateurs système Linux nécessaires
 RUN apt-get update && apt-get install --yes --no-install-recommends \
     g++ \
     openjdk-17-jdk-headless \
@@ -13,15 +13,14 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
 
 USER ${NB_USER}
 
-# 3. Installer le gestionnaire d'environnement Mamba (Conda ultra-rapide) pour le noyau C++
+# 3. Installer le noyau C++ (xeus-cling) et les outils widgets graphiques
 RUN mamba install --yes -c conda-forge \
     xeus-cling \
     ipywidgets \
     && mamba clean --all -f -y
 
-# 4. Télécharger et installer proprement le noyau Java natif (Lien complet)
-RUN curl -L https://github.com -o /tmp/ijava.zip \
+# 4. Télécharger l'installeur officiel du noyau Java (Lien complet obligatoire)
+RUN curl -L "https://github.com" -o /tmp/ijava.zip \
     && unzip /tmp/ijava.zip -d /tmp/ijava_pack \
     && python /tmp/ijava_pack/install.py --sys-prefix \
     && rm -rf /tmp/ijava.zip /tmp/ijava_pack
-
